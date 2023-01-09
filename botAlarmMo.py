@@ -4,7 +4,6 @@ import requests
 import schedule
 import pymysql  
 import datetime
-import math
 
 connection = pymysql.connect(host='127.0.0.1',user='root',password='',db='alarm_olt')
 cursor = connection.cursor()
