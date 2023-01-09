@@ -1,5 +1,12 @@
+import paramiko
+import time
+import requests
+import schedule
+import pymysql  
+import datetime
+
 def CheckOLTVersion(input):
-if input == "AN5516-04": 
+        if input == "AN5516-04": 
             cmd = ["cd service",
                     "terminal length 0",
                     "cd .",
@@ -27,3 +34,5 @@ if input == "AN5516-04":
                   shell.send(command + "\n")
                   time.sleep(4)
                 output = shell.recv(65535)    
+
+    return output
