@@ -1,6 +1,8 @@
 import pymysql  
 import telebot
 
+#test123
+
 connection = pymysql.connect(host='127.0.0.1',user='root',password='',db='alarm_olt')
 #cursor = connection.cursor()
 #sql_list = 'select ip,status,tag,time from olt_log;'
