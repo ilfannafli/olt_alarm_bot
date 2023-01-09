@@ -62,10 +62,10 @@ def func():
         #print(cmd)
 
         #ambil ip MO
-        getIPMO.IPMO(olt[0])
+        mo_warning = getIPMO.IPMO(olt[0])
 
         #ambil list olt down
-        getListOlt.ListOLT(olt[0])
+        mo_down = getListOlt.ListOLT(olt[0])
      
 
         #ambil data pic
@@ -75,7 +75,7 @@ def func():
         voltase= getGeneralData.general(olt[0])
 
         #cek OLT INDOOR dan MSAN
-        CekPosOLT.cekpos(olt[3],olt[4],olt[0],olt[2])
+        CekPosOLT.cekpos(olt[3],olt[4],olt[0],olt[2],ceklogin,testping,mo_down)
 
         #cek Mini OLT FiberHome
         #print(output.decode())
