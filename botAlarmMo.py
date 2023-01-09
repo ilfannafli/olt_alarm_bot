@@ -65,7 +65,7 @@ def func():
         mo_warning = getIPMO.IPMO(olt[0])
 
         #ambil list olt down
-        mo_down = getListOlt.ListOLT(olt[0])
+        mo_down = getListOLT.ListOLT(olt[0])
      
 
         #ambil data pic
