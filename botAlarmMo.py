@@ -52,7 +52,7 @@ def func():
         time.sleep(3)
         
         #Command Check Versi OLT
-        OLTVer.CheckOLTVersion(olt[1])
+        output = OLTVer.CheckOLTVersion(olt[1])
 """"
        #command list untuk OLT versi AN5516-04
         if olt[1] == "AN5516-04": 
@@ -87,7 +87,7 @@ def func():
         #print(cmd)
 
         #ambil ip MO
-        
+
         cursor = connection.cursor()
         sql_warning = 'select ip,status from olt_warning where ip="'+olt[0]+'";'
         cursor.execute(sql_warning)
