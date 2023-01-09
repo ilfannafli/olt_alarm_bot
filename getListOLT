@@ -1,0 +1,6 @@
+def ListOLT(olt0):      
+        cursor = connection.cursor()
+        sql_down = 'select ip from olt_down where ip="'+olt0+'";'
+        cursor.execute(sql_down)
+        mo_down = cursor.fetchall()
+        return
