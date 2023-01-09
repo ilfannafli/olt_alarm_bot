@@ -4,7 +4,7 @@ import requests
 import schedule
 import pymysql  
 import datetime
-import math
+import CheckOLTVersion as OLTVer
 
 connection = pymysql.connect(host='127.0.0.1',user='root',password='',db='alarm_olt')
 cursor = connection.cursor()
@@ -50,8 +50,11 @@ def func():
         cekpwd = shell.recv(65535)
         print(cekpwd.decode())
         time.sleep(3)
-
-        #command list untuk OLT versi AN5516-04
+        
+        #Command Check Versi OLT
+        OLTVer.CheckOLTVersion(olt[1])
+""""
+       #command list untuk OLT versi AN5516-04
         if olt[1] == "AN5516-04": 
             cmd = ["cd service",
                     "terminal length 0",
@@ -79,10 +82,12 @@ def func():
                 if command == "show alarm current":
                   shell.send(command + "\n")
                   time.sleep(4)
-                output = shell.recv(65535)                  
+                output = shell.recv(65535)     
+                """"             
         #print(cmd)
 
         #ambil ip MO
+        
         cursor = connection.cursor()
         sql_warning = 'select ip,status from olt_warning where ip="'+olt[0]+'";'
         cursor.execute(sql_warning)
