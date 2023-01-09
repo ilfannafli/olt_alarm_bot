@@ -4,7 +4,6 @@ import requests
 import schedule
 import pymysql  
 import datetime
-import CheckOLTVersion as OLTVer
 import logingood
 import loginbad
 def cekpos(pos,brand,olt0,olt2,ceklogin,testping,mo_down,connection,url_mtcgroup,url_maingroup,pic) :
