@@ -1,0 +1,96 @@
+#cek OLT INDOOR dan MSAN
+        if olt[3] == "INDOOR" and olt[4] == "FIBERHOME":
+            if "Login" not in str(ceklogin) and "bytes" not in str(testping) and olt[0] not in str(mo_down):
+                cursor = connection.cursor()
+                sql_insert_table_warning = 'INSERT INTO `olt_down`(`ip`,`status`) VALUES ("'+olt[0]+'","DOWN");'
+                cursor.execute(sql_insert_table_warning)
+                connection.commit()
+            
+                ct = datetime.datetime.now()
+                sql_log = 'INSERT INTO `olt_log`(`ip`,`status`,`tag`,`time`) VALUES ("'+olt[0]+'","OLT DOWN","START","'+str(ct)+'");'
+                cursor.execute(sql_log)
+                connection.commit()           
+
+                msg_maingroup = url_maingroup+olt[2]+' ('+olt[0]+') tidak dapat diremote.\nMini OLT terindikasi LOS\n'+pic
+                requests.get(msg_maingroup)
+                msg_mtcgroup = url_mtcgroup+olt[2]+' ('+olt[0]+') tidak dapat diremote.\nMini OLT terindikasi LOS\n'+pic
+                requests.get(msg_mtcgroup)                
+                #print(olt[0])
+
+            elif "Login" in str(ceklogin) and olt[0] in str(mo_down) and "bytes" in str(testping):
+                cursor = connection.cursor()
+                sql_delete_table_down = 'DELETE FROM `olt_down` WHERE ip="'+olt[0]+'";'
+                cursor.execute(sql_delete_table_down)
+                connection.commit()
+
+                ct = datetime.datetime.now()
+                sql_log = 'INSERT INTO `olt_log`(`ip`,`status`,`tag`,`time`) VALUES ("'+olt[0]+'","OLT DOWN","END","'+str(ct)+'");'
+                cursor.execute(sql_log)
+                connection.commit()
+
+            else:
+                continue
+
+        elif olt[3] == "INDOOR" and olt[4] == "ZTE":
+            if "Username" not in str(ceklogin) and "bytes" not in str(testping) and olt[0] not in str(mo_down):
+                cursor = connection.cursor()
+                sql_insert_table_warning = 'INSERT INTO `olt_down`(`ip`,`status`) VALUES ("'+olt[0]+'","DOWN");'
+                cursor.execute(sql_insert_table_warning)
+                connection.commit()
+            
+                ct = datetime.datetime.now()
+                sql_log = 'INSERT INTO `olt_log`(`ip`,`status`,`tag`,`time`) VALUES ("'+olt[0]+'","OLT DOWN","START","'+str(ct)+'");'
+                cursor.execute(sql_log)
+                connection.commit()             
+
+                msg_maingroup = url_maingroup+olt[2]+' ('+olt[0]+') tidak dapat diremote.\nMini OLT terindikasi LOS\n'+pic
+                requests.get(msg_maingroup)
+                msg_mtcgroup = url_mtcgroup+olt[2]+' ('+olt[0]+') tidak dapat diremote.\nMini OLT terindikasi LOS\n'+pic
+                requests.get(msg_mtcgroup)                
+                #print(olt[0])
+
+            elif "Username" in str(ceklogin) and olt[0] in str(mo_down) and "bytes" in str(testping):
+                cursor = connection.cursor()
+                sql_delete_table_down = 'DELETE FROM `olt_down` WHERE ip="'+olt[0]+'";'
+                cursor.execute(sql_delete_table_down)
+                connection.commit()
+
+                ct = datetime.datetime.now()
+                sql_log = 'INSERT INTO `olt_log`(`ip`,`status`,`tag`,`time`) VALUES ("'+olt[0]+'","OLT DOWN","END","'+str(ct)+'");'
+                cursor.execute(sql_log)
+                connection.commit()
+
+            else:
+                continue
+
+        elif olt[3] == "INDOOR" and olt[4] == "ALU":
+            if "login" not in str(ceklogin) and "bytes" not in str(testping) and olt[0] not in str(mo_down):
+                cursor = connection.cursor()
+                sql_insert_table_warning = 'INSERT INTO `olt_down`(`ip`,`status`) VALUES ("'+olt[0]+'","DOWN");'
+                cursor.execute(sql_insert_table_warning)
+                connection.commit()
+            
+                ct = datetime.datetime.now()
+                sql_log = 'INSERT INTO `olt_log`(`ip`,`status`,`tag`,`time`) VALUES ("'+olt[0]+'","OLT DOWN","START","'+str(ct)+'");'
+                cursor.execute(sql_log)
+                connection.commit()             
+
+                msg_maingroup = url_maingroup+olt[2]+' ('+olt[0]+') tidak dapat diremote.\nMini OLT terindikasi LOS\n'+pic
+                requests.get(msg_maingroup)
+                msg_mtcgroup = url_mtcgroup+olt[2]+' ('+olt[0]+') tidak dapat diremote.\nMini OLT terindikasi LOS\n'+pic
+                requests.get(msg_mtcgroup)                
+                #print(olt[0])
+
+            elif "login" in str(ceklogin) and olt[0] in str(mo_down) and "bytes" in str(testping):
+                cursor = connection.cursor()
+                sql_delete_table_down = 'DELETE FROM `olt_down` WHERE ip="'+olt[0]+'";'
+                cursor.execute(sql_delete_table_down)
+                connection.commit()
+
+                ct = datetime.datetime.now()
+                sql_log = 'INSERT INTO `olt_log`(`ip`,`status`,`tag`,`time`) VALUES ("'+olt[0]+'","OLT DOWN","END","'+str(ct)+'");'
+                cursor.execute(sql_log)
+                connection.commit()
+
+            else:
+                continue
