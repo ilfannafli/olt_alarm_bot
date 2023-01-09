@@ -5,6 +5,7 @@ import schedule
 import pymysql  
 import datetime
 import CheckOLTVersion as OLTVer
+import CekPosOLT
 
 connection = pymysql.connect(host='127.0.0.1',user='root',password='',db='alarm_olt')
 cursor = connection.cursor()
@@ -115,6 +116,7 @@ def func():
         for vol in voltase2jam:
             voltase=str(vol[0])
 
+        CekPosOLT.cekpos(olt[3],olt[4],olt[0],olt[2])
 """
         #cek OLT INDOOR dan MSAN
         if olt[3] == "INDOOR" and olt[4] == "FIBERHOME":
