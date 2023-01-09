@@ -1,3 +1,10 @@
+import paramiko
+import time
+import requests
+import schedule
+import pymysql  
+import datetime
+
 def IPMO(olt0):      
         cursor = connection.cursor()
         sql_warning = 'select ip,status from olt_warning where ip="'+olt0+'";'
