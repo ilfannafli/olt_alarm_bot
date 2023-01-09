@@ -5,7 +5,7 @@ import schedule
 import pymysql  
 import datetime
 
-def CheckOLTVersion(input):
+def CheckOLTVersion(input,shell):
         if input == "AN5516-04": 
             cmd = ["cd service",
                     "terminal length 0",
@@ -13,14 +13,14 @@ def CheckOLTVersion(input):
                     "cd maintenance",
                     "cd alarm",
                     "show alarm current"]
-
             for command in cmd:
                 shell.send(command + "\n")
                 #time.sleep(1)
                 if command == "show alarm current":
                   shell.send(command + "\n")
                   time.sleep(3)   
-                output = shell.recv(65535)                     
+                output = shell.recv(65535)    
+                return output                 
 
          #command list untuk OLT versi AN6000-2           
         if input == "AN6000-2": 
@@ -34,5 +34,4 @@ def CheckOLTVersion(input):
                   shell.send(command + "\n")
                   time.sleep(4)
                 output = shell.recv(65535)    
-
-    return output
+                return output

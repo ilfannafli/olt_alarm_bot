@@ -5,7 +5,7 @@ import schedule
 import pymysql  
 import datetime
 
-def IPMO(olt0):      
+def IPMO(olt0,connection):      
         cursor = connection.cursor()
         sql_warning = 'select ip,status from olt_warning where ip="'+olt0+'";'
         cursor.execute(sql_warning)

@@ -5,7 +5,7 @@ import schedule
 import pymysql  
 import datetime
 
-def general(olt0)
+def voltase(olt0,connection) :
         cursor = connection.cursor()
         sql_voltase = 'SELECT olt_gcu.voltase_2jam FROM `olt_gcu` JOIN olt_list ON olt_gcu.ip=olt_list.ip WHERE olt_list.ip="'+olt0+'";'
         cursor.execute(sql_voltase)

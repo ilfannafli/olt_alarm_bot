@@ -5,7 +5,7 @@ import schedule
 import pymysql  
 import datetime
 
-def PIC(olt0):        
+def PIC(olt0,connection):        
         cursor = connection.cursor()
         sql_pic = 'SELECT pic.username FROM `pic` JOIN olt_list ON pic.sto=olt_list.sto WHERE olt_list.ip="'+olt0+'";'
         cursor.execute(sql_pic)
