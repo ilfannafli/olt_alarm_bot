@@ -5,7 +5,7 @@ import schedule
 import pymysql  
 import datetime
 
-def ListOLT(olt0):      
+def mo_down(olt0,connection):      
         cursor = connection.cursor()
         sql_down = 'select ip from olt_down where ip="'+olt0+'";'
         cursor.execute(sql_down)
