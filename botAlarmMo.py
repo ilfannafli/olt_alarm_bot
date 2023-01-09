@@ -115,6 +115,7 @@ def func():
         for vol in voltase2jam:
             voltase=str(vol[0])
 
+"""
         #cek OLT INDOOR dan MSAN
         if olt[3] == "INDOOR" and olt[4] == "FIBERHOME":
             if "Login" not in str(ceklogin) and "bytes" not in str(testping) and olt[0] not in str(mo_down):
@@ -243,7 +244,7 @@ def func():
 
             else:
                 continue                 
-
+"""
 
         #cek Mini OLT FiberHome
         #print(output.decode())
