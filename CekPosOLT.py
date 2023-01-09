@@ -7,7 +7,7 @@ import datetime
 import CheckOLTVersion as OLTVer
 import logingood
 import loginbad
-def cekpos(pos,brand,olt0,olt2)
+def cekpos(pos,brand,olt0,olt2,ceklogin,testping,mo_down)
 #cek OLT INDOOR dan MSAN
         if pos == "INDOOR":
             if brand == "FIBERHOME" or brand == "ALU":
