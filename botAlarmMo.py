@@ -4,13 +4,13 @@ import requests
 import schedule
 import pymysql  
 import datetime
-import CheckOLTVersion as OLTVer
-import CekPosOLT
-import getGeneralData
-import getPIC
-import getListOLT
-import getIPMO
-import CheckMiniOLTFiberHome
+from checkfunc import CheckOLTVersion as OLTVer
+from checkfunc import CekPosOLT
+from checkfunc import CheckMiniOLTFiberHome
+from getfunc import getGeneralData
+from getfunc import getPIC
+from getfunc import getListOLT
+from getfunc import getIPMO
 
 connection = pymysql.connect(host='127.0.0.1',user='root',password='',db='alarm_olt')
 cursor = connection.cursor()
