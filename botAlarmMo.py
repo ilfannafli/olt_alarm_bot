@@ -20,8 +20,8 @@ data = cursor.fetchall()
 
 
 #alamat grup Telegram
-url_maingroup = 'https://api.telegram.org/bot[API BOT]/sendMessage?chat_id=[id grup telegram]&text='
-url_mtcgroup = 'https://api.telegram.org/bot[API BOT]/sendMessage?chat_id=[id grup telegram]&text='
+url_maingroup = 'https://api.telegram.org/bot5933357528:AAGoECge8eGvPFQqG3Y1xfXeA3-yu-tVy8Q/sendMessage?chat_id=[-1001851139717]&text='
+url_mtcgroup = 'https://api.telegram.org/bot5933357528:AAGoECge8eGvPFQqG3Y1xfXeA3-yu-tVy8Q/sendMessage?chat_id=[-1001851139717]&text='
 
 #ip, user, password telnet
 ip_address = "[xxxxxx]"
