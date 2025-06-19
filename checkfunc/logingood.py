@@ -3,8 +3,7 @@ import time
 import requests
 import schedule
 import pymysql  
-import datetime
-import CheckOLTVersion as OLTVer               
+import datetime            
 def good(olt0,connection):
     cursor = connection.cursor()
     sql_delete_table_down = 'DELETE FROM `olt_down` WHERE ip="'+olt0+'";'
