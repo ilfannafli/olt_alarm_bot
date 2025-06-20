@@ -174,7 +174,7 @@ def func():
                     #cek apakah data baru dimasukkan pertama kali    
                     if firsttime is None:
                         #cek lagi sudah hilang apa belum
-                        doublecheck = 'select hostname from olt_warning where `ip`="'+olt[0]+'";'
+                        doublecheck = 'select hostname from olt_warning where `ip`  ="'+olt[0]+'";'
                         cursor.execute(doublecheck)
                         checkWarning = cursor.fetchone()
 
@@ -192,6 +192,12 @@ def func():
                             #bot.send_message(-1001851139717,firstingfo)
                             msg_maingroup = url_maingroup+firstingfo
                             requests.get(msg_maingroup)
+
+                            #cek id grup
+                            grupWitel = getGroupID.getID(connection,olt[0])
+                            msg_grupWitel = grupWitel + firstingfo
+                            requests.get(msg_grupWitel,timeout=5)
+                            
                             '''msg_mtcgroup = url_mtcgroup+firstingfo
                             requests.get(msg_mtcgroup)'''
                             n[i]=0
@@ -335,6 +341,12 @@ def func():
                             #bot.send_message(-1001851139717,firstingfo)
                             msg_maingroup = url_maingroup+firstingfo
                             requests.get(msg_maingroup)
+
+                            #cek id grup
+                            grupWitel = getGroupID.getID(connection,olt[0])
+                            msg_grupWitel = grupWitel + firstingfo
+                            requests.get(msg_grupWitel,timeout=5)
+
                             '''msg_mtcgroup = url_mtcgroup+firstingfo
                             requests.get(msg_mtcgroup)'''
                             n[i]=0
