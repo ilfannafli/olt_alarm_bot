@@ -26,26 +26,37 @@ def pesan(message):
         bot.reply_to(message, info_login)
     else :
         bot.reply_to(message, text="Tidak diijinkan melihat login")
-@bot.message_handler(commands=['cek'])
+
+@bot.message_handler(commands=['cekbaterai'])
 def pesan(message):
     connection = pymysql.connect(host='localhost',user='root',password='',db='testoltkp')
     cursor = connection.cursor()
     if running :
-        #AMBIL DATA OLT YANG ACVOLDOWN
-        sql_list_acvoldown = 'SELECT olt_list.hostname, olt_list.ip FROM olt_list join olt_warning on olt_list.ip=olt_warning.ip WHERE olt_warning.status="ACVOLDOWN";'
-        cursor.execute(sql_list_acvoldown)
-        data_acvoldown = cursor.fetchall()
-
+        #AMBIL DATA OLT YANG BATTERY MISSING
         sql_list_batmiss = 'SELECT olt_list.hostname, olt_list.ip FROM olt_list join olt_warning on olt_list.ip=olt_warning.ip WHERE olt_warning.status="BATTERY_MISSING";'
         cursor.execute(sql_list_batmiss)
         data_batmiss = cursor.fetchall()
+        
+        #Melakukan List pada OLT yang battery misisng
+        pesan_header_mbt = 'LIST OLT TIDAK TERDAPAT BATERAI:\n '
+        pesan_list_mbt = ''
+        no_mbt = 0
+        for list_mbt in data_batmiss :
+            no_mbt += 1        
+            pesan_list_mbt = pesan_list_mbt+str(no_mbt)+'. '+list_mbt[0]+' ('+list_mbt[1]+') ' + '\n'
+        pesan_mbt = pesan_header_mbt + pesan_list_mbt + '\n'
+        
+        connection.close()    
+        bot.reply_to(message, pesan_mbt)
 
-        #AMBIL DATA OLT YANG TERINDIKASI DOWN
-        cursor = connection.cursor()
-        sql_list_down = 'SELECT olt_list.hostname, olt_list.ip FROM olt_list join olt_down on olt_list.ip=olt_down.ip WHERE olt_down.status="DOWN";'
-        cursor.execute(sql_list_down)
-        data_down = cursor.fetchall()
+    if not running:
+        bot.reply_to(message, text="Bot belum menyala silahkan gunakan /mulaibot")
 
+@bot.message_handler(commands=['cekdoor'])
+def pesan(message):
+    connection = pymysql.connect(host='localhost',user='root',password='',db='testoltkp')
+    cursor = connection.cursor()
+    if running :
         #AMBIL DATA OLT YANG PINTU KABINETNYA TERBUKA
         cursor = connection.cursor()
         sql_list_door = 'SELECT olt_list.hostname, olt_list.ip FROM olt_list join olt_warningdoor on olt_list.ip=olt_warningdoor.ip WHERE olt_warningdoor.status="DOOR_OPEN";'
@@ -57,16 +68,7 @@ def pesan(message):
         sql_list_bunker = 'SELECT olt_list.hostname, olt_list.ip FROM olt_list join olt_warningdoor on olt_list.ip=olt_warningdoor.ip WHERE olt_warningdoor.status="BUNKER_OPEN";'
         cursor.execute(sql_list_bunker)
         data_bunker = cursor.fetchall()
-        
-        #Melakukan List pada pintu OLT yang terbuka
-        pesan_header_mbt = 'LIST OLT TIDAK TERDAPAT BATERAI:\n '
-        pesan_list_mbt = ''
-        no_mbt = 0
-        for list_mbt in data_batmiss :
-            no_mbt += 1        
-            pesan_list_mbt = pesan_list_mbt+str(no_mbt)+'. '+list_mbt[0]+' ('+list_mbt[1]+') ' + '\n'
-        pesan_mbt = pesan_header_mbt + pesan_list_mbt + '\n'
-        
+
         #Melakukan List pada pintu OLT yang terbuka
         pesan_header_dr = 'LIST OLT PINTU KABINET TERBUKA:\n '
         pesan_list_dr = ''
@@ -86,6 +88,28 @@ def pesan(message):
             pesan_list_bk = pesan_list_bk+str(no_bk)+'. '+list_bk[0]+' ('+list_bk[1]+') ' + '\n'
         pesan_bk = pesan_header_bk + pesan_list_bk + '\n'
 
+        pesan = pesan_dr + pesan_bk
+        connection.close()    
+        bot.reply_to(message, pesan)
+
+    if not running:
+        bot.reply_to(message, text="Bot belum menyala silahkan gunakan /mulaibot")
+
+@bot.message_handler(commands=['cek'])
+def pesan(message):
+    connection = pymysql.connect(host='localhost',user='root',password='',db='testoltkp')
+    cursor = connection.cursor()
+    if running :
+        #AMBIL DATA OLT YANG ACVOLDOWN
+        sql_list_acvoldown = 'SELECT olt_list.hostname, olt_list.ip FROM olt_list join olt_warning on olt_list.ip=olt_warning.ip WHERE olt_warning.status="ACVOLDOWN";'
+        cursor.execute(sql_list_acvoldown)
+        data_acvoldown = cursor.fetchall()
+        
+        #AMBIL DATA OLT YANG TERINDIKASI DOWN
+        cursor = connection.cursor()
+        sql_list_down = 'SELECT olt_list.hostname, olt_list.ip FROM olt_list join olt_down on olt_list.ip=olt_down.ip WHERE olt_down.status="DOWN";'
+        cursor.execute(sql_list_down)
+        data_down = cursor.fetchall()
         
         #Melakukan List pada OLt yang mati
         pesan_header_av = 'LIST OLT LISTRIK MATI:\n'
@@ -139,7 +163,7 @@ def pesan(message):
             no_dw += 1       
             pesan_list_down = pesan_list_down+str(no_dw)+'. '+list_down[0]+' ('+list_down[1]+') \n Online User sebelum mati : ' +str(data_normon[0])+ '\n\n'
             
-        if no_av == 0 and no_dw == 0 and no_bk==0 and no_dr==0: 
+        if no_av == 0 and no_dw == 0: 
                 pesan = 'Seluruh OLT UP dan Aman'      
         else:
             pesan_down = pesan_header_down + pesan_list_down + '\n'
@@ -226,6 +250,42 @@ def start_program(message):
                     subprocess.call(["taskkill", "/F", "/T", "/PID", str(pid)])
                 with open("pid_bot.txt", "r") as h:
                     pid = int(h.read().strip())
+                    subprocess.call(["taskkill", "/F", "/T", "/PID", str(pid)])
+                with open("pid_thread4.txt", "r") as m:
+                    pid = int(m.read().strip())
+                    subprocess.call(["taskkill", "/F", "/T", "/PID", str(pid)])
+                with open("pid_thread5.txt", "r") as n:
+                    pid = int(n.read().strip())
+                    subprocess.call(["taskkill", "/F", "/T", "/PID", str(pid)])
+                with open("pid_thread6.txt", "r") as o:
+                    pid = int(o.read().strip())
+                    subprocess.call(["taskkill", "/F", "/T", "/PID", str(pid)])
+                with open("pid_thread7.txt", "r") as p:
+                    pid = int(p.read().strip())
+                    subprocess.call(["taskkill", "/F", "/T", "/PID", str(pid)])
+                with open("pid_thread8.txt", "r") as q:
+                    pid = int(q.read().strip())
+                    subprocess.call(["taskkill", "/F", "/T", "/PID", str(pid)])
+                with open("pid_thread9.txt", "r") as r:
+                    pid = int(r.read().strip())
+                    subprocess.call(["taskkill", "/F", "/T", "/PID", str(pid)])
+                with open("pid_thread10.txt", "r") as s:
+                    pid = int(s.read().strip())
+                    subprocess.call(["taskkill", "/F", "/T", "/PID", str(pid)])
+                with open("pid_thread11.txt", "r") as t:
+                    pid = int(t.read().strip())
+                    subprocess.call(["taskkill", "/F", "/T", "/PID", str(pid)])
+                with open("pid_thread12.txt", "r") as u:
+                    pid = int(u.read().strip())
+                    subprocess.call(["taskkill", "/F", "/T", "/PID", str(pid)])
+                with open("pid_thread13.txt", "r") as v:
+                    pid = int(v.read().strip())
+                    subprocess.call(["taskkill", "/F", "/T", "/PID", str(pid)])
+                with open("pid_thread14.txt", "r") as w:
+                    pid = int(w.read().strip())
+                    subprocess.call(["taskkill", "/F", "/T", "/PID", str(pid)])
+                with open("pid_thread15.txt", "r") as x:
+                    pid = int(x.read().strip())
                     subprocess.call(["taskkill", "/F", "/T", "/PID", str(pid)])
                 kounter+=1
               
