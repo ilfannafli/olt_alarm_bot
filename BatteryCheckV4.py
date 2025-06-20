@@ -184,7 +184,7 @@ def func():
                             sql_insert_table_warning = 'INSERT INTO `test_dropvoltage`(`ip`,`voltage`,`current_load`,`Percentage`,`capacity`,`time`,`time_elapsed`) VALUES ("'+olt[0]+'","'+voltase+'","'+current_load+'","'+bat_percentage+'","'+sisabaterai+'","'+waktu+'","'+elapsedsecond+'");'
                             cursor.execute(sql_insert_table_warning)
                             connection.commit()
-                            if str(voltaseAC) > 0:
+                            if float(voltaseAC) > 0:
                                 firstingfo="listrik "+olt[3]+" tidak mati, voltase AC saat ini down, sebesar: "+ voltaseAC+" V"
                             else:
                                 firstingfo="STATUS "+olt[3]+" : VOLTASE DC = " + voltase + " | VOLTASE AC = " + voltaseAC + " | ARUS BEBAN = " +current_load+" | ONLINE USER = "+useronline
@@ -328,7 +328,7 @@ def func():
                             sql_insert_table_warning = 'INSERT INTO `test_dropvoltage`(`ip`,`voltage`,`current_load`,`Percentage`,`capacity`,`time`,`time_elapsed`) VALUES ("'+olt[0]+'","'+voltase+'","'+current_load+'","'+bat_percentage+'","'+sisabaterai+'","'+waktu+'","'+elapsedsecond+'");'
                             cursor.execute(sql_insert_table_warning)
                             connection.commit()
-                            if str(voltaseAC) > 0:
+                            if float(voltaseAC) > 0:
                                 firstingfo="listrik "+olt[3]+" tidak mati, voltase AC saat ini down, sebesar: "+ voltaseAC+" V"
                             else:
                                 firstingfo="STATUS "+olt[3]+" : VOLTASE DC = " + voltase + " | VOLTASE AC = " + voltaseAC + " | ARUS BEBAN = " +current_load+" | ONLINE USER = "+useronline
