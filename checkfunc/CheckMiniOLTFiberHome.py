@@ -5,6 +5,7 @@ import schedule
 import pymysql  
 import datetime
 import telebot
+from getfunc import getLoginData, getGroupID
 bot = telebot.TeleBot('8108321673:AAGMkFTivNWOirWfL3qh2pDVao2tLhohadA')
 
 def MiniOLTcheck(olt0,olt2,olt1,mo_warning,mo_down,testping,url_maingroup,url_mtcgroup,url_kpgroup,url_patroligroup,connection,ceklogin,output,onlinematch,mo_door) :
@@ -23,6 +24,11 @@ def MiniOLTcheck(olt0,olt2,olt1,mo_warning,mo_down,testping,url_maingroup,url_mt
                 sql_log = 'INSERT INTO `olt_log`(`ip`,`status`,`tag`,`time`) VALUES ("'+olt0+'","OLT DOWN","START","'+str(ct)+'");'
                 cursor.execute(sql_log)
                 connection.commit()  
+
+                #cek id grup
+                grupWitel = getGroupID.getID(connection,olt0)
+                msg_grupWitel = grupWitel + olt2+' ('+olt0+') tidak dapat diremote.\nMini OLT terindikasi LOS\n'
+                requests.get(msg_grupWitel,timeout=5)
 
                 msg_maingroup = url_maingroup+olt2+' ('+olt0+') tidak dapat diremote.\nMini OLT terindikasi LOS\n'
                 requests.get(msg_maingroup)
@@ -69,6 +75,10 @@ def MiniOLTcheck(olt0,olt2,olt1,mo_warning,mo_down,testping,url_maingroup,url_mt
                 sql_delete_table_warning = 'DELETE FROM `olt_warning` WHERE ip="'+olt0+'";'
                 cursor.execute(sql_delete_table_warning)
                 connection.commit()"""
+                #cek id grup
+                grupWitel = getGroupID.getID(connection,olt0)
+                msg_grupWitel = grupWitel + "Baterai "+olt2+' ('+olt0+') telah habis.\nMini OLT DOWN\n'
+                requests.get(msg_grupWitel,timeout=5)
 
                 msg_maingroup = url_maingroup+"Baterai "+olt2+' ('+olt0+') telah habis.\nMini OLT DOWN\n'
                 #msg_mtcgroup = url_mtcgroup+"Baterai "+olt2+' ('+olt0+') telah habis.\nMini OLT DOWN\n'
@@ -183,6 +193,11 @@ def MiniOLTcheck(olt0,olt2,olt1,mo_warning,mo_down,testping,url_maingroup,url_mt
                 cursor.execute(sql_log)
                 connection.commit()           
 
+                #cek id grup
+                grupWitel = getGroupID.getID(connection,olt0)
+                msg_grupWitel = grupWitel + olt2+' ('+olt0+') Listrik sudah menyala'
+                requests.get(msg_grupWitel,timeout=5)
+
                 msg_maingroup = url_maingroup+olt2+' ('+olt0+') Listrik sudah menyala'
                 requests.get(msg_maingroup)
                 #msg_mtcgroup = url_mtcgroup+olt2+' ('+olt0+') Listrik sudah menyala'
@@ -234,6 +249,11 @@ def MiniOLTcheck(olt0,olt2,olt1,mo_warning,mo_down,testping,url_maingroup,url_mt
                 sql_log = 'INSERT INTO `olt_log`(`ip`,`status`,`tag`,`time`) VALUES ("'+olt0+'","OLT LOS","END","'+str(ct)+'");'
                 cursor.execute(sql_log)
                 connection.commit()
+
+                #cek id grup
+                grupWitel = getGroupID.getID(connection,olt0)
+                msg_grupWitel = grupWitel + olt2+' ('+olt0+') sudah UP.'
+                requests.get(msg_grupWitel,timeout=5)
 
                 msg_maingroup = url_maingroup+olt2+' ('+olt0+') sudah UP.'
                 requests.get(msg_maingroup)

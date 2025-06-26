@@ -185,7 +185,7 @@ def func():
                             cursor.execute(sql_insert_table_warning)
                             connection.commit()
                             if float(voltaseAC) > 0:
-                                firstingfo="listrik "+olt[3]+" tidak mati, voltase AC saat ini down, sebesar: "+ voltaseAC+" V"
+                                firstingfo="voltase AC "+olt[3]+" saat ini down, sebesar: "+ voltaseAC+" V"
                             else:
                                 firstingfo="STATUS "+olt[3]+" : VOLTASE DC = " + voltase + " | VOLTASE AC = " + voltaseAC + " | ARUS BEBAN = " +current_load+" | ONLINE USER = "+useronline
                             
@@ -335,7 +335,7 @@ def func():
                             cursor.execute(sql_insert_table_warning)
                             connection.commit()
                             if float(voltaseAC) > 0:
-                                firstingfo="listrik "+olt[3]+" tidak mati, voltase AC saat ini down, sebesar: "+ voltaseAC+" V"
+                                firstingfo="voltase AC "+olt[3]+" saat ini down, sebesar: "+ voltaseAC+" V"
                             else:
                                 firstingfo="STATUS "+olt[3]+" : VOLTASE DC = " + voltase + " | VOLTASE AC = " + voltaseAC + " | ARUS BEBAN = " +current_load+" | ONLINE USER = "+useronline
                             #bot.send_message(-1001851139717,firstingfo)
