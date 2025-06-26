@@ -118,7 +118,15 @@ def MiniOLTcheck(olt0,olt2,olt1,mo_warning,mo_down,testping,url_maingroup,url_mt
                 ct = datetime.datetime.now()
                 sql_log = 'INSERT INTO `olt_log`(`ip`,`status`,`tag`,`time`) VALUES ("'+olt0+'","OLT DOWN","END","'+str(ct)+'");'
                 cursor.execute(sql_log)
-                connection.commit()                         
+                connection.commit()        
+
+                #cek id grup
+                grupWitel = getGroupID.getID(connection,olt0)
+                msg_grupWitel = grupWitel + olt2+' ('+olt0+') sudah UP.'
+                requests.get(msg_grupWitel,timeout=5)
+
+                msg_maingroup = url_maingroup+olt2+' ('+olt0+') sudah UP.'
+                requests.get(msg_maingroup)                 
 
             if "ACVOLDOWN" in str(output) and "Current Alarm" in str(output) and olt0 not in str(mo_warning):            
                 cursor = connection.cursor()
