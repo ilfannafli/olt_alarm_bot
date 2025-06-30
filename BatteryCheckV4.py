@@ -34,8 +34,8 @@ url_maingroup,url_mtcgroup,url_kpgroup, url_patroligroup, ip_address,usr,pwd = g
 #ip_address = "10.60.190.16"
 #usr = "940305"
 #pwd = "Ilfannafli01"
-n=[0,0,0,0,0,0,0,0,0]
-floorsec=[0,0,0,0,0,0,0,0,0]
+n=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+floorsec=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 ssh.connect(hostname=ip_address, username=usr, password=pwd)
@@ -87,8 +87,8 @@ def func():
             print("Berhasil menghapus tabel lama")
             
         time.sleep(0.2)
-        n=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-        floorsec=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        n=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        floorsec=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         
 
     else : 
